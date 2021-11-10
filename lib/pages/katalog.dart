@@ -18,8 +18,8 @@ class _KatalogPageState extends State<KatalogPage> {
   late Future<List<Kursus>> kursus;
 
   Future<List<Kursus>> fetchKursus() async {
-    // var url = Uri.http('10.55.250.77', '/testapi2.php', {'action': 'kursus'});
-    var url = Uri.http('192.168.0.120', '/api/api.php', {'action': 'kursus'});
+    var url = Uri.http('10.55.250.77', '/testapi2.php', {'action': 'kursus'});
+    // var url = Uri.http('192.168.0.120', '/api/api.php', {'action': 'kursus'});
 
     final response = await http.get(url);
 

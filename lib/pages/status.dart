@@ -19,8 +19,8 @@ class _StatusPageState extends State<StatusPage> {
   Future<List<Kursus>>? kursus;
 
   Future<List<Kursus>> fetchKursus(nokp) async {
-    // var url = Uri.http('10.55.250.77', '/testapi2.php', {'action': 'semak'});
-    var url = Uri.http('192.168.0.120', '/api/api.php', {'action': 'semak'});
+    var url = Uri.http('10.55.250.77', '/testapi2.php', {'action': 'semak'});
+    // var url = Uri.http('192.168.0.120', '/api/api.php', {'action': 'semak'});
 
     final response = await http.post(url, body: {'nokp': nokp});
 
