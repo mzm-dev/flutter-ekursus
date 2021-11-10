@@ -52,14 +52,14 @@ class ButiranPage extends StatelessWidget {
           ),          
           ListTile(
             subtitle: Text(
-              "${kursus.TarikhMula} - ${kursus.BilPeserta}",
+              "${kursus.BilPeserta}",
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
             title: const Text('Bilangan Peserta'),
           ),
           ListTile(
             subtitle: Text(
-              "${kursus.TarikhMula} - ${kursus.catatan}",
+              "${kursus.catatan}",
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
             title: const Text('Catatan'),
