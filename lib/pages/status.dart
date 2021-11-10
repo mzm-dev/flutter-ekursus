@@ -16,30 +16,28 @@ class _StatusPageState extends State<StatusPage> {
 
   final inputNoKP = TextEditingController();
 
-  bool submited = false;
-  bool results = false;
-
   Future<List<Kursus>>? kursus;
 
   Future<List<Kursus>> fetchKursus(nokp) async {
-    var url = Uri.http('10.55.250.77', '/testapi2.php', {'action': 'semak'});
-    // var url = Uri.http('192.168.0.120', '/api/api.php', {'action': 'semak'});
+    // var url = Uri.http('10.55.250.77', '/testapi2.php', {'action': 'semak'});
+    var url = Uri.http('192.168.0.120', '/api/api.php', {'action': 'semak'});
 
     final response = await http.post(url, body: {'nokp': nokp});
 
     if (response.statusCode == 200) {
-      final parsed = convert.jsonDecode(response.body).cast<Map<String, dynamic>>();
-      
+      final parsed = convert
+          .jsonDecode(
+              response.body != 'false' ? response.body : convert.jsonEncode([]))
+          .cast<Map<String, dynamic>>();
       return parsed.map<Kursus>((json) => Kursus.fromJson(json)).toList();
     } else {
       throw Exception('Failed to load album');
     }
-  }  
+  }
 
   void submit(nokp) {
     setState(() {
       kursus = fetchKursus(nokp);
-      submited = true;
     });
   }
 
@@ -70,7 +68,7 @@ class _StatusPageState extends State<StatusPage> {
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter some text';
-                        }else if(value.length != 12 ){
+                        } else if (value.length != 12) {
                           return 'Invalid input';
                         }
                         return null;
@@ -85,8 +83,9 @@ class _StatusPageState extends State<StatusPage> {
                       style: ElevatedButton.styleFrom(elevation: 0),
                       onPressed: () {
                         // Validate returns true if the form is valid, or false otherwise.
-                        if (_formKey.currentState!.validate()) {                          
-                          submit(inputNoKP.text);                          
+                        if (_formKey.currentState!.validate()) {
+                          FocusScope.of(context).unfocus();//Hide Keyboard
+                          submit(inputNoKP.text);
                         }
                       },
                       child: const Icon(Icons.search),
@@ -125,11 +124,11 @@ class _StatusPageState extends State<StatusPage> {
                           subtitle: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [                              
+                            children: [
                               Text(
                                   "${snapshot.data![index].TarikhMula} - ${snapshot.data![index].TarikhTamat}",
                                   style: const TextStyle(
-                                      fontWeight: FontWeight.bold)),                              
+                                      fontWeight: FontWeight.bold)),
                             ],
                           ),
                           trailing: Column(
@@ -156,7 +155,8 @@ class _StatusPageState extends State<StatusPage> {
                     ),
                   );
           } else {
-            return const Center(child: Text('Carian melalui No Kad Pengenalan'));
+            return const Center(
+                child: Text('Carian melalui No Kad Pengenalan'));
           }
         },
       ),
