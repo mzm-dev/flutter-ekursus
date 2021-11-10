@@ -13,6 +13,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+          appBarTheme: const AppBarTheme(
+              backgroundColor: Colors.orange,
+              foregroundColor: Colors.white //here you can give the text color
+              )),
       title: 'Material App',
       home: HomePage(),
       routes: <String, WidgetBuilder>{
